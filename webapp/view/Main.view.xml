@@ -1,0 +1,31 @@
+<mvc:View controllerName="com.spreadsheetimporter.apiupload.controller.Main" displayBlock="true"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core" core:require="{
+		formatter: 'com/spreadsheetimporter/apiupload/model/formatter'
+	}">
+
+	<Page title="{i18n>appTitle}" id="page">
+		<content>
+			<Text text="OData Services" />
+			<VBox spacing="1rem">
+				<Select id="serviceSelect" items="{
+						path: 'catalogService>/ServiceCollection',
+						sorter: { path: 'Description' }
+					}" change=".onServiceChange" forceSelection="false">
+					<core:Item key="{catalogService>ID}" text="{catalogService>Description}" />
+				</Select>
+
+				<!-- <Button text="Execute" press=".onExecuteService" /> -->
+				<Text text="Entity Sets" />
+				<Select id="entitySetSelect" change=".onEntitySetChange" forceSelection="false" visible="false">
+					<core:Item key="{entitySets>key}" text="{entitySets>text}" />
+				</Select>
+
+				<Button text="Excel Upload" press=".onUpload" />
+
+				<Table id="dynamicTable" visible="false" />
+			</VBox>
+		</content>
+	</Page>
+</mvc:View>

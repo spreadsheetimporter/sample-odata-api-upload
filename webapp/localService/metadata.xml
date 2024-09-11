@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="catalogservice" xml:lang="de" sap:schema-version="1"
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Annotation" m:HasStream="true" sap:content-version="2">
+                <Key>
+                    <PropertyRef Name="TechnicalName"/>
+                    <PropertyRef Name="Version"/>
+                </Key>
+                <Property Name="TechnicalName" Type="Edm.String" Nullable="false" MaxLength="35" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="Version" Type="Edm.String" Nullable="false" MaxLength="4" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="60" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MediaType" Type="Edm.String" Nullable="false" MaxLength="30" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Services" Relationship="catalogservice.ServicesAnnotations" FromRole="ToRole_ServicesAnnotations" ToRole="FromRole_ServicesAnnotations"/>
+                <NavigationProperty Name="RecommendedSrv" Relationship="catalogservice.RecommendedServiceAnnotation" FromRole="ToRole_RecommendedServiceAnnotation" ToRole="FromRole_RecommendedServiceAnnotation"/>
+                <NavigationProperty Name="ScopedSrv" Relationship="catalogservice.ScopedServiceAnnotation" FromRole="ToRole_ScopedServiceAnnotation" ToRole="FromRole_ScopedServiceAnnotation"/>
+            </EntityType>
+            <EntityType Name="Vocabulary" m:HasStream="true" sap:content-version="2">
+                <Key>
+                    <PropertyRef Name="TechnicalName"/>
+                    <PropertyRef Name="Version"/>
+                    <PropertyRef Name="SAP__Origin"/>
+                </Key>
+                <Property Name="TechnicalName" Type="Edm.String" Nullable="false" MaxLength="32" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="Version" Type="Edm.String" Nullable="false" MaxLength="4" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="SAP__Origin" Type="Edm.String" Nullable="false" MaxLength="16" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Namespace" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="60" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MediaType" Type="Edm.String" Nullable="false" MaxLength="30" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Service" sap:content-version="2">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" Nullable="false" MaxLength="40" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="60" m:FC_KeepInContent="true" m:FC_TargetPath="SyndicationTitle" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="Title" Type="Edm.String" Nullable="false" MaxLength="40" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Author" Type="Edm.String" Nullable="false" MaxLength="12" m:FC_KeepInContent="true" m:FC_TargetPath="SyndicationAuthorName" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TechnicalServiceVersion" Type="Edm.Int16" Nullable="false" sap:creatable="false"/>
+                <Property Name="MetadataUrl" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:semantics="url"/>
+                <Property Name="TechnicalServiceName" Type="Edm.String" Nullable="false" MaxLength="35" sap:creatable="false"/>
+                <Property Name="ImageUrl" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:semantics="url"/>
+                <Property Name="ServiceUrl" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:semantics="url"/>
+                <Property Name="UpdatedDate" Type="Edm.DateTime" Nullable="false" Precision="0" m:FC_KeepInContent="true" m:FC_TargetPath="SyndicationUpdated" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="ReleaseStatus" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="Category" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="IsSapService" Type="Edm.Boolean" Nullable="false" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="ServiceType" Type="Edm.String" Nullable="false" MaxLength="40" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <NavigationProperty Name="EntitySets" Relationship="catalogservice.EntitySets" FromRole="FromRole_EntitySets" ToRole="ToRole_EntitySets"/>
+                <NavigationProperty Name="TagCollection" Relationship="catalogservice.TagsServices" FromRole="ToRole_TagsServices" ToRole="FromRole_TagsServices"/>
+                <NavigationProperty Name="Annotations" Relationship="catalogservice.ServicesAnnotations" FromRole="FromRole_ServicesAnnotations" ToRole="ToRole_ServicesAnnotations"/>
+            </EntityType>
+            <EntityType Name="ServiceName" sap:content-version="2">
+                <Key>
+                    <PropertyRef Name="Namespace"/>
+                    <PropertyRef Name="Name"/>
+                    <PropertyRef Name="Version"/>
+                </Key>
+                <Property Name="Namespace" Type="Edm.String" Nullable="false" MaxLength="10" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="40" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Version" Type="Edm.String" Nullable="false" MaxLength="4" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Annotations" Relationship="catalogservice.ServiceName2Annotations" FromRole="FromRole_ServiceName2Annotations" ToRole="ToRole_ServiceName2Annotations"/>
+                <NavigationProperty Name="Service" Relationship="catalogservice.ServiceName2Service" FromRole="FromRole_ServiceName2Service" ToRole="ToRole_ServiceName2Service"/>
+                <NavigationProperty Name="ReccomendedService" Relationship="catalogservice.SrvName2RecommendedSrv" FromRole="FromRole_SrvName2RecommendedSrv" ToRole="ToRole_SrvName2RecommendedSrv"/>
+                <NavigationProperty Name="ScopedService" Relationship="catalogservice.SrvName2ScopedSrv" FromRole="FromRole_SrvName2ScopedSrv" ToRole="ToRole_SrvName2ScopedSrv"/>
+            </EntityType>
+            <EntityType Name="Tag" sap:content-version="2">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Text" Type="Edm.String" Nullable="false" sap:creatable="false"/>
+                <Property Name="Occurrence" Type="Edm.Int16" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Services" Relationship="catalogservice.TagsServices" FromRole="FromRole_TagsServices" ToRole="ToRole_TagsServices"/>
+                <NavigationProperty Name="TagRecommendedServices" Relationship="catalogservice.TagRecommendedServices" FromRole="FromRole_TagRecommendedServices" ToRole="ToRole_TagRecommendedServices"/>
+                <NavigationProperty Name="TagScopedServices" Relationship="catalogservice.TagScopedServices" FromRole="FromRole_TagScopedServices" ToRole="ToRole_TagScopedServices"/>
+            </EntityType>
+            <EntityType Name="EntitySet" sap:content-version="2">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="SrvIdentifier"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" Nullable="false" m:FC_KeepInContent="true" m:FC_TargetPath="SyndicationTitle" sap:creatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SrvIdentifier" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="Description" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TechnicalServiceName" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TechnicalServiceVersion" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Service" Relationship="catalogservice.EntitySets" FromRole="ToRole_EntitySets" ToRole="FromRole_EntitySets"/>
+                <NavigationProperty Name="RecommendedServices" Relationship="catalogservice.RecommendedEntitySets" FromRole="ToRole_RecommendedEntitySets" ToRole="FromRole_RecommendedEntitySets"/>
+                <NavigationProperty Name="ScopedServices" Relationship="catalogservice.ScopedEntitySets" FromRole="ToRole_ScopedEntitySets" ToRole="FromRole_ScopedEntitySets"/>
+            </EntityType>
+            <EntityType Name="Catalog" sap:content-version="2">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" Nullable="false" sap:creatable="false" sap:filterable="false"/>
+                <Property Name="Description" Type="Edm.String" Nullable="false" sap:creatable="false" sap:filterable="false"/>
+                <Property Name="ImageUrl" Type="Edm.String" Nullable="false" sap:creatable="false" sap:filterable="false"/>
+                <Property Name="Title" Type="Edm.String" Nullable="false" sap:creatable="false" sap:filterable="false"/>
+                <Property Name="UpdatedDate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:creatable="false" sap:filterable="false"/>
+                <Property Name="Url" Type="Edm.String" Nullable="false" sap:creatable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Services" Relationship="catalogservice.Services" FromRole="FromRole_Services" ToRole="ToRole_Services"/>
+                <NavigationProperty Name="RecommendedSrvs" Relationship="catalogservice.RecommendedServices" FromRole="FromRole_RecommendedServices" ToRole="ToRole_RecommendedServices"/>
+                <NavigationProperty Name="ScopedSrvs" Relationship="catalogservice.ScopedServices" FromRole="FromRole_ScopedServices" ToRole="ToRole_ScopedServices"/>
+            </EntityType>
+            <EntityType Name="RecommendedService" sap:content-version="2">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" Nullable="false" MaxLength="40" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="60" m:FC_KeepInContent="true" m:FC_TargetPath="SyndicationTitle" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="Title" Type="Edm.String" Nullable="false" MaxLength="40" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Author" Type="Edm.String" Nullable="false" MaxLength="12" m:FC_KeepInContent="true" m:FC_TargetPath="SyndicationAuthorName" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TechnicalServiceVersion" Type="Edm.Int16" Nullable="false" sap:creatable="false"/>
+                <Property Name="MetadataUrl" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:semantics="url"/>
+                <Property Name="TechnicalServiceName" Type="Edm.String" Nullable="false" MaxLength="35" sap:creatable="false"/>
+                <Property Name="ImageUrl" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:semantics="url"/>
+                <Property Name="ServiceUrl" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:semantics="url"/>
+                <Property Name="UpdatedDate" Type="Edm.DateTime" Nullable="false" Precision="0" m:FC_KeepInContent="true" m:FC_TargetPath="SyndicationUpdated" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="ReleaseStatus" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="Category" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="IsSapService" Type="Edm.Boolean" Nullable="false" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="ServiceType" Type="Edm.String" Nullable="false" MaxLength="40" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <NavigationProperty Name="EntitySets" Relationship="catalogservice.RecommendedEntitySets" FromRole="FromRole_RecommendedEntitySets" ToRole="ToRole_RecommendedEntitySets"/>
+                <NavigationProperty Name="TagCollection" Relationship="catalogservice.TagRecommendedServices" FromRole="ToRole_TagRecommendedServices" ToRole="FromRole_TagRecommendedServices"/>
+                <NavigationProperty Name="Annotations" Relationship="catalogservice.RecommendedServiceAnnotation" FromRole="FromRole_RecommendedServiceAnnotation" ToRole="ToRole_RecommendedServiceAnnotation"/>
+            </EntityType>
+            <EntityType Name="ScopedService" sap:content-version="2">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" Nullable="false" MaxLength="40" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="60" m:FC_KeepInContent="true" m:FC_TargetPath="SyndicationTitle" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="Title" Type="Edm.String" Nullable="false" MaxLength="40" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Author" Type="Edm.String" Nullable="false" MaxLength="12" m:FC_KeepInContent="true" m:FC_TargetPath="SyndicationAuthorName" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TechnicalServiceVersion" Type="Edm.Int16" Nullable="false" sap:creatable="false"/>
+                <Property Name="MetadataUrl" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:semantics="url"/>
+                <Property Name="TechnicalServiceName" Type="Edm.String" Nullable="false" MaxLength="35" sap:creatable="false"/>
+                <Property Name="ImageUrl" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:semantics="url"/>
+                <Property Name="ServiceUrl" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:semantics="url"/>
+                <Property Name="UpdatedDate" Type="Edm.DateTime" Nullable="false" Precision="0" m:FC_KeepInContent="true" m:FC_TargetPath="SyndicationUpdated" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="ReleaseStatus" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="Category" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="IsSapService" Type="Edm.Boolean" Nullable="false" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="ServiceType" Type="Edm.String" Nullable="false" MaxLength="40" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <NavigationProperty Name="EntitySets" Relationship="catalogservice.ScopedEntitySets" FromRole="FromRole_ScopedEntitySets" ToRole="ToRole_ScopedEntitySets"/>
+                <NavigationProperty Name="TagCollection" Relationship="catalogservice.TagScopedServices" FromRole="ToRole_TagScopedServices" ToRole="FromRole_TagScopedServices"/>
+                <NavigationProperty Name="Annotations" Relationship="catalogservice.ScopedServiceAnnotation" FromRole="FromRole_ScopedServiceAnnotation" ToRole="ToRole_ScopedServiceAnnotation"/>
+            </EntityType>
+            <Association Name="RecommendedEntitySets" sap:content-version="2">
+                <End Type="catalogservice.RecommendedService" Multiplicity="1" Role="FromRole_RecommendedEntitySets"/>
+                <End Type="catalogservice.EntitySet" Multiplicity="*" Role="ToRole_RecommendedEntitySets"/>
+            </Association>
+            <Association Name="RecommendedServiceAnnotation" sap:content-version="2">
+                <End Type="catalogservice.RecommendedService" Multiplicity="*" Role="FromRole_RecommendedServiceAnnotation"/>
+                <End Type="catalogservice.Annotation" Multiplicity="*" Role="ToRole_RecommendedServiceAnnotation"/>
+            </Association>
+            <Association Name="ServiceName2Service" sap:content-version="2">
+                <End Type="catalogservice.ServiceName" Multiplicity="1" Role="FromRole_ServiceName2Service"/>
+                <End Type="catalogservice.Service" Multiplicity="1" Role="ToRole_ServiceName2Service"/>
+            </Association>
+            <Association Name="SrvName2RecommendedSrv" sap:content-version="2">
+                <End Type="catalogservice.ServiceName" Multiplicity="1" Role="FromRole_SrvName2RecommendedSrv"/>
+                <End Type="catalogservice.RecommendedService" Multiplicity="1" Role="ToRole_SrvName2RecommendedSrv"/>
+            </Association>
+            <Association Name="SrvName2ScopedSrv" sap:content-version="2">
+                <End Type="catalogservice.ServiceName" Multiplicity="1" Role="FromRole_SrvName2ScopedSrv"/>
+                <End Type="catalogservice.RecommendedService" Multiplicity="1" Role="ToRole_SrvName2ScopedSrv"/>
+            </Association>
+            <Association Name="ServiceName2Annotations" sap:content-version="2">
+                <End Type="catalogservice.ServiceName" Multiplicity="1" Role="FromRole_ServiceName2Annotations"/>
+                <End Type="catalogservice.Annotation" Multiplicity="*" Role="ToRole_ServiceName2Annotations"/>
+            </Association>
+            <Association Name="ScopedEntitySets" sap:content-version="2">
+                <End Type="catalogservice.ScopedService" Multiplicity="1" Role="FromRole_ScopedEntitySets"/>
+                <End Type="catalogservice.EntitySet" Multiplicity="*" Role="ToRole_ScopedEntitySets"/>
+            </Association>
+            <Association Name="ScopedServiceAnnotation" sap:content-version="2">
+                <End Type="catalogservice.ScopedService" Multiplicity="*" Role="FromRole_ScopedServiceAnnotation"/>
+                <End Type="catalogservice.Annotation" Multiplicity="*" Role="ToRole_ScopedServiceAnnotation"/>
+            </Association>
+            <Association Name="TagsServices" sap:content-version="2">
+                <End Type="catalogservice.Tag" Multiplicity="*" Role="FromRole_TagsServices"/>
+                <End Type="catalogservice.Service" Multiplicity="*" Role="ToRole_TagsServices"/>
+            </Association>
+            <Association Name="TagRecommendedServices" sap:content-version="2">
+                <End Type="catalogservice.Tag" Multiplicity="*" Role="FromRole_TagRecommendedServices"/>
+                <End Type="catalogservice.RecommendedService" Multiplicity="*" Role="ToRole_TagRecommendedServices"/>
+            </Association>
+            <Association Name="TagScopedServices" sap:content-version="2">
+                <End Type="catalogservice.Tag" Multiplicity="*" Role="FromRole_TagScopedServices"/>
+                <End Type="catalogservice.ScopedService" Multiplicity="*" Role="ToRole_TagScopedServices"/>
+            </Association>
+            <Association Name="EntitySets" sap:content-version="2">
+                <End Type="catalogservice.Service" Multiplicity="1" Role="FromRole_EntitySets"/>
+                <End Type="catalogservice.EntitySet" Multiplicity="*" Role="ToRole_EntitySets"/>
+            </Association>
+            <Association Name="ServicesAnnotations" sap:content-version="2">
+                <End Type="catalogservice.Service" Multiplicity="*" Role="FromRole_ServicesAnnotations"/>
+                <End Type="catalogservice.Annotation" Multiplicity="*" Role="ToRole_ServicesAnnotations"/>
+            </Association>
+            <Association Name="Services" sap:content-version="2">
+                <End Type="catalogservice.Catalog" Multiplicity="1" Role="FromRole_Services"/>
+                <End Type="catalogservice.Service" Multiplicity="*" Role="ToRole_Services"/>
+            </Association>
+            <Association Name="RecommendedServices" sap:content-version="2">
+                <End Type="catalogservice.Catalog" Multiplicity="1" Role="FromRole_RecommendedServices"/>
+                <End Type="catalogservice.RecommendedService" Multiplicity="*" Role="ToRole_RecommendedServices"/>
+            </Association>
+            <Association Name="ScopedServices" sap:content-version="2">
+                <End Type="catalogservice.Catalog" Multiplicity="1" Role="FromRole_ScopedServices"/>
+                <End Type="catalogservice.ScopedService" Multiplicity="*" Role="ToRole_ScopedServices"/>
+            </Association>
+            <EntityContainer Name="catalogservice_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="Annotations" EntityType="catalogservice.Annotation" sap:updatable="false" sap:deletable="false" sap:content-version="2"/>
+                <EntitySet Name="Vocabularies" EntityType="catalogservice.Vocabulary" sap:updatable="false" sap:deletable="false" sap:addressable="false" sap:content-version="2"/>
+                <EntitySet Name="ServiceCollection" EntityType="catalogservice.Service" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="2"/>
+                <EntitySet Name="ServiceNames" EntityType="catalogservice.ServiceName" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:addressable="false" sap:content-version="2"/>
+                <EntitySet Name="TagCollection" EntityType="catalogservice.Tag" sap:creatable="false" sap:updatable="false" sap:content-version="2"/>
+                <EntitySet Name="EntitySetCollection" EntityType="catalogservice.EntitySet" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2"/>
+                <EntitySet Name="CatalogCollection" EntityType="catalogservice.Catalog" sap:content-version="2"/>
+                <EntitySet Name="RecommendedServiceCollection" EntityType="catalogservice.RecommendedService" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="2"/>
+                <EntitySet Name="ScopedServiceCollection" EntityType="catalogservice.ScopedService" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="2"/>
+                <AssociationSet Name="Assoc_TagScopedServices" Association="catalogservice.TagScopedServices" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="TagCollection" Role="FromRole_TagScopedServices"/>
+                    <End EntitySet="ScopedServiceCollection" Role="ToRole_TagScopedServices"/>
+                </AssociationSet>
+                <AssociationSet Name="Assoc_RecommendedSrvAnnotation" Association="catalogservice.RecommendedServiceAnnotation" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="RecommendedServiceCollection" Role="FromRole_RecommendedServiceAnnotation"/>
+                    <End EntitySet="Annotations" Role="ToRole_RecommendedServiceAnnotation"/>
+                </AssociationSet>
+                <AssociationSet Name="AssocSet_Services" Association="catalogservice.Services" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="CatalogCollection" Role="FromRole_Services"/>
+                    <End EntitySet="ServiceCollection" Role="ToRole_Services"/>
+                </AssociationSet>
+                <AssociationSet Name="AssocSet_RecommendedEntitySets" Association="catalogservice.RecommendedEntitySets" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="RecommendedServiceCollection" Role="FromRole_RecommendedEntitySets"/>
+                    <End EntitySet="EntitySetCollection" Role="ToRole_RecommendedEntitySets"/>
+                </AssociationSet>
+                <AssociationSet Name="Assoc_SrvName2ScopedSrv" Association="catalogservice.SrvName2ScopedSrv" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="ServiceNames" Role="FromRole_SrvName2ScopedSrv"/>
+                    <End EntitySet="RecommendedServiceCollection" Role="ToRole_SrvName2ScopedSrv"/>
+                </AssociationSet>
+                <AssociationSet Name="AssocSet_ServicesAnnotations" Association="catalogservice.ServicesAnnotations" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="ServiceCollection" Role="FromRole_ServicesAnnotations"/>
+                    <End EntitySet="Annotations" Role="ToRole_ServicesAnnotations"/>
+                </AssociationSet>
+                <AssociationSet Name="Association_ServiceName2Annotations" Association="catalogservice.ServiceName2Annotations" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="ServiceNames" Role="FromRole_ServiceName2Annotations"/>
+                    <End EntitySet="Annotations" Role="ToRole_ServiceName2Annotations"/>
+                </AssociationSet>
+                <AssociationSet Name="Assoc_SrvName2RecommendedSrv" Association="catalogservice.SrvName2RecommendedSrv" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="ServiceNames" Role="FromRole_SrvName2RecommendedSrv"/>
+                    <End EntitySet="RecommendedServiceCollection" Role="ToRole_SrvName2RecommendedSrv"/>
+                </AssociationSet>
+                <AssociationSet Name="AssocSet_ScopedServices" Association="catalogservice.ScopedServices" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="CatalogCollection" Role="FromRole_ScopedServices"/>
+                    <End EntitySet="ScopedServiceCollection" Role="ToRole_ScopedServices"/>
+                </AssociationSet>
+                <AssociationSet Name="AssocSet_EntitySets" Association="catalogservice.EntitySets" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="ServiceCollection" Role="FromRole_EntitySets"/>
+                    <End EntitySet="EntitySetCollection" Role="ToRole_EntitySets"/>
+                </AssociationSet>
+                <AssociationSet Name="AssocSet_ScopedEntitySets" Association="catalogservice.ScopedEntitySets" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="ScopedServiceCollection" Role="FromRole_ScopedEntitySets"/>
+                    <End EntitySet="EntitySetCollection" Role="ToRole_ScopedEntitySets"/>
+                </AssociationSet>
+                <AssociationSet Name="Assoc_TagRecommendedServices" Association="catalogservice.TagRecommendedServices" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="TagCollection" Role="FromRole_TagRecommendedServices"/>
+                    <End EntitySet="RecommendedServiceCollection" Role="ToRole_TagRecommendedServices"/>
+                </AssociationSet>
+                <AssociationSet Name="Assoc_ScopedSrvAnnotation" Association="catalogservice.ScopedServiceAnnotation" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="ScopedServiceCollection" Role="FromRole_ScopedServiceAnnotation"/>
+                    <End EntitySet="Annotations" Role="ToRole_ScopedServiceAnnotation"/>
+                </AssociationSet>
+                <AssociationSet Name="AssocSet_TagsServices" Association="catalogservice.TagsServices" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="TagCollection" Role="FromRole_TagsServices"/>
+                    <End EntitySet="ServiceCollection" Role="ToRole_TagsServices"/>
+                </AssociationSet>
+                <AssociationSet Name="AssocSet_RecommendedServices" Association="catalogservice.RecommendedServices" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="CatalogCollection" Role="FromRole_RecommendedServices"/>
+                    <End EntitySet="RecommendedServiceCollection" Role="ToRole_RecommendedServices"/>
+                </AssociationSet>
+                <AssociationSet Name="Association_ServiceName2Service" Association="catalogservice.ServiceName2Service" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="ServiceNames" Role="FromRole_ServiceName2Service"/>
+                    <End EntitySet="ServiceCollection" Role="ToRole_ServiceName2Service"/>
+                </AssociationSet>
+                <FunctionImport Name="BestMatchingService" ReturnType="catalogservice.Service" EntitySet="ServiceCollection" m:HttpMethod="GET">
+                    <Parameter Name="TechnicalServiceVersionMin" Type="Edm.Int16" Mode="In" Nullable="false"/>
+                    <Parameter Name="TechnicalServiceName" Type="Edm.String" Mode="In" Nullable="false"/>
+                    <Parameter Name="TechnicalServiceVersionMax" Type="Edm.Int16" Mode="In" Nullable="false"/>
+                </FunctionImport>
+                <FunctionImport Name="ClearMetadataCacheForService" ReturnType="catalogservice.Service" EntitySet="ServiceCollection" m:HttpMethod="GET">
+                    <Parameter Name="ServiceID" Type="Edm.String" Mode="In" Nullable="false"/>
+                </FunctionImport>
+                <FunctionImport Name="BestMatchingRecommendedSrv" ReturnType="catalogservice.RecommendedService" EntitySet="RecommendedServiceCollection" m:HttpMethod="GET">
+                    <Parameter Name="TechnicalServiceVersionMin" Type="Edm.Int16" Mode="In" Nullable="false"/>
+                    <Parameter Name="TechnicalServiceName" Type="Edm.String" Mode="In" Nullable="false"/>
+                    <Parameter Name="TechnicalServiceVersionMax" Type="Edm.Int16" Mode="In" Nullable="false"/>
+                </FunctionImport>
+                <FunctionImport Name="ClearMetadataCacheRecommendedSrv" ReturnType="catalogservice.RecommendedService" EntitySet="RecommendedServiceCollection" m:HttpMethod="GET">
+                    <Parameter Name="ServiceID" Type="Edm.String" Mode="In" Nullable="false"/>
+                </FunctionImport>
+                <FunctionImport Name="BestMatchingScopedSrv" ReturnType="catalogservice.ScopedService" EntitySet="ScopedServiceCollection" m:HttpMethod="GET">
+                    <Parameter Name="TechnicalServiceVersionMin" Type="Edm.Int16" Mode="In" Nullable="false"/>
+                    <Parameter Name="TechnicalServiceName" Type="Edm.String" Mode="In" Nullable="false"/>
+                    <Parameter Name="TechnicalServiceVersionMax" Type="Edm.Int16" Mode="In" Nullable="false"/>
+                </FunctionImport>
+                <FunctionImport Name="ClearMetadataCacheScopedSrv" ReturnType="catalogservice.ScopedService" EntitySet="ScopedServiceCollection" m:HttpMethod="GET">
+                    <Parameter Name="ServiceID" Type="Edm.String" Mode="In" Nullable="false"/>
+                </FunctionImport>
+            </EntityContainer>
+            <Annotation Term="Core.SchemaVersion" String="1.0.0"
+                xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <atom:link rel="self" href="/sap/opu/odata/IWFND/catalogservice;v=2/$metadata"
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="/sap/opu/odata/IWFND/catalogservice;v=2/$metadata"
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

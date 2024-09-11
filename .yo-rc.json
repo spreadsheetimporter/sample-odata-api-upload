@@ -1,0 +1,18 @@
+{
+  "generator-ui5-ts-app": {
+    "namespace": "com.spreadsheetimporter.apiupload",
+    "framework": "SAPUI5",
+    "frameworkVersion": "1.120.19",
+    "author": "„marianfoo“",
+    "initrepo": true,
+    "tstypes": "@sapui5/types",
+    "tstypesVersion": "1.120.19",
+    "appId": "com.spreadsheetimporter.apiupload",
+    "appURI": "com/spreadsheetimporter/apiupload",
+    "cdnDomain": "ui5.sap.com",
+    "defaultTheme": "sap_horizon",
+    "gte1_98_0": true,
+    "gte1_104_0": true,
+    "gte1_115_0": true
+  }
+}

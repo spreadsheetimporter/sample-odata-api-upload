@@ -1,0 +1,112 @@
+{
+	"_version": "1.12.0",
+
+	"sap.app": {
+		"id": "com.spreadsheetimporter.apiupload",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"applicationVersion": {
+			"version": "${version}"
+		},
+		"dataSources": {
+			"CatalogService": {
+				"uri": "sap/opu/odata/IWFND/catalogservice;v=2/",
+				"type": "OData",
+				"settings": {
+					"localUri": "localService/metadata.xml"
+				}
+			}
+		}
+	},
+
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "com.spreadsheetimporter.apiupload.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "app"
+		},
+
+		"dependencies": {
+			"minUI5Version": "1.120.19",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {}
+			}
+		},
+
+		"handleValidation": true,
+
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+
+		"resourceRoots": {
+  "cc.spreadsheetimporter.v1_2_0": "./thirdparty/customcontrol/spreadsheetimporter/v1_2_0"
+},
+"componentUsages": {
+  "spreadsheetImporter": {
+    "name": "cc.spreadsheetimporter.v1_2_0"
+  }
+},
+
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "com.spreadsheetimporter.apiupload.i18n.i18n"
+				}
+			},
+			"catalogService": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "TwoWay",
+					"defaultCountMode": "None",
+					"useBatch": true,
+					"earlyTokenRequest": true,
+					"tokenHandling": true
+				},
+				"dataSource": "CatalogService",
+				"preload": true
+			}
+		},
+
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "com.spreadsheetimporter.apiupload.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"async": true
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "main",
+					"target": "main"
+				}
+			],
+			"targets": {
+				"main": {
+					"viewId": "main",
+					"viewName": "Main"
+				}
+			}
+		}
+	}
+}
