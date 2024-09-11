@@ -8,6 +8,7 @@ import Text from "sap/m/Text";
 import ColumnListItem from "sap/m/ColumnListItem";
 import ODataModel from "sap/ui/model/odata/v2/ODataModel";
 import Item from "sap/ui/core/Item";
+import Component, { $ComponentSettings } from "cc/spreadsheetimporter/v1_2_0/Component";
 
 /**
  * @namespace com.spreadsheetimporter.apiupload.controller
@@ -168,16 +169,30 @@ export default class Main extends BaseController {
 	}
 
 	async onUpload(): void {
+		const componentData: $ComponentSettings = {
+			context: this
+		}
+		const serviceSelected = this.byId("serviceSelect") as Select;
+		const selectedItem = serviceSelected.getSelectedItem();
+		const selectedItemObject = selectedItem
+			.getBindingContext("catalogService")
+			.getObject();
+		const entitySetSelected = this.byId("entitySetSelect") as Select;
+		const selectedEntitySet = entitySetSelected.getSelectedItem();
+		const selectedEntitySetObject = selectedEntitySet
+			.getBindingContext("entitySets")
+			.getObject();
+
+		if( selectedItemObject.ID === "ZGWSAMPLE_BASIC_0001" && selectedEntitySetObject.key === "SALESORDERSET") {
+			componentData.columns = ["Note", "CustomerID", "GrossAmount", "NetAmount", "TaxAmount"]
+		}
 		this.spreadsheetUpload = await this.getView()
 			.getController()
 			.getOwnerComponent()
 			.createComponent({
 				usage: "spreadsheetImporter",
 				async: true,
-				componentData: {
-					context: this,
-					
-				},
+				componentData: componentData
 			});
 		this.spreadsheetUpload.openSpreadsheetUploadDialog();
 	}

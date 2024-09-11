@@ -9,7 +9,7 @@
 		"strictNullChecks": false,
 		"strictPropertyInitialization": false,
 		"rootDir": "./webapp",
-		"types": ["@sapui5/types", "@types/qunit"],
+		"types": ["@sapui5/types", "@types/qunit", "ui5-cc-spreadsheetimporter"],
 		"paths": {
 			"com/spreadsheetimporter/apiupload/*": ["./webapp/*"],
 			"unit/*": ["./webapp/test/unit/*"],
